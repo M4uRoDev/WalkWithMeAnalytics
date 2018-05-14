@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">WalkWithMe Analytics</string>
+    <string name="text_principal">Bienvenido a WWM Analytics</string>
+    <string name="connect_text">Presione la imagen para buscar dispositivos</string>
+    <string name="connect_button">Buscar dispositivos</string>
+    <string name="footer_text">Esta aplicación tiene sus funciones limitadas, solo permite guardar la lectura de la información obtenida por los Beans con fines de investigación.</string>
+    <string name="ingrese_nombre_muestra">Nombre muestra:</string>
+    <string name="ingrese_tiempo_muestra">Tiempo muestra:</string>
+    <string name="unidad_tiempo">seg.</string>
+    <string name="ingrese_intervalo">Intervalo:</string>
+    <string name="boton_iniciar">INICIAR</string>
+    <string name="boton__cancelar">CANCELAR</string>
 </resources>
