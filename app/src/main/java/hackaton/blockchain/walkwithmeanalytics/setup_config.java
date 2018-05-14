@@ -44,6 +44,7 @@ public class setup_config extends AppCompatActivity {
         iniciar = (Button)findViewById(R.id.iniciar_button);
         stop = (Button)findViewById(R.id.stop_button);
         console = (TextView)findViewById(R.id.console_text);
+        intervalo.setText("200");
         wwmeDevice = (Bean) getIntent().getExtras().get("connect");
 
         iniciar.setEnabled(false);
