@@ -27,11 +27,12 @@ import java.text.SimpleDateFormat;
 
 public class setup_config extends AppCompatActivity {
 
-    EditText nombre, tiempo;
+    EditText nombre, tiempo, intervalo;
     Button iniciar, stop;
     Bean wwmeDevice;
     TextView console;
     String datas = "";
+    CountDownTimer timer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +40,7 @@ public class setup_config extends AppCompatActivity {
 
         nombre = (EditText)findViewById(R.id.nombre_editText);
         tiempo = (EditText)findViewById(R.id.tiempo_editText);
+        intervalo = (EditText)findViewById(R.id.intervalo_editText);
         iniciar = (Button)findViewById(R.id.iniciar_button);
         stop = (Button)findViewById(R.id.stop_button);
         console = (TextView)findViewById(R.id.console_text);
@@ -60,7 +62,9 @@ public class setup_config extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(nombre.getText().toString().isEmpty() || tiempo.getText().toString().isEmpty()){
+                if(nombre.getText().toString().isEmpty() || tiempo.getText().toString().isEmpty() || intervalo.getText().toString().isEmpty()){
+                    iniciar.setEnabled(false);
+                }else{
                     iniciar.setEnabled(true);
                 }
             }
@@ -79,12 +83,61 @@ public class setup_config extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(nombre.getText().toString().isEmpty() || tiempo.getText().toString().isEmpty()){
+                if(nombre.getText().toString().isEmpty() || tiempo.getText().toString().isEmpty() || intervalo.getText().toString().isEmpty()){
+                    iniciar.setEnabled(false);
+                }else{
                     iniciar.setEnabled(true);
                 }
             }
         });
+
+        iniciar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                iniciar.setEnabled(false);
+                String nom = nombre.getText().toString();
+                int seg = Integer.parseInt(tiempo.getText().toString());
+                int interval = Integer.parseInt(intervalo.getText().toString());
+                boolean allOk = true;
+
+                //comprobación
+                if(nom.isEmpty()){
+                    allOk = false;
+                    Toast.makeText(getApplicationContext(), "Nombre no puede ser vacio", Toast.LENGTH_LONG).show();
+                    nombre.requestFocus();
+                }
+                if(seg > 5000){
+                    allOk = false;
+                    Toast.makeText(getApplicationContext(), "Tiempo debe ser superior a 5000 (5 segundos)", Toast.LENGTH_LONG).show();
+                    tiempo.requestFocus();
+                }
+
+                if(interval < 200){
+                    allOk = false;
+                    Toast.makeText(getApplicationContext(), "Intervalo debe ser mayor que 200",Toast.LENGTH_LONG).show();
+                    intervalo.requestFocus();
+                }
+
+                if(allOk){
+                    capturaData(nom,seg,interval);
+                    stop.setEnabled(true);
+                }else{
+                    iniciar.setEnabled(true);
+                    stop.setEnabled(false);
+                }
+            }
+        });
+
+        stop.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                timer.cancel();
+                stop.setEnabled(false);
+                iniciar.setEnabled(true);
+            }
+        });
     }
+
 
     void capturaData(final String nombre, final int segundos, final int intervalo){
 
@@ -95,7 +148,7 @@ public class setup_config extends AppCompatActivity {
             @Override
             public void onConnected() {
                 console.setText("...GUARDANDO LECTURA...");
-                final CountDownTimer timer = new CountDownTimer(segundos, intervalo) {
+                timer = new CountDownTimer(segundos, intervalo) {
                     public void onTick(long millisUntilFinished) {
                         iniciar.setText(""+millisUntilFinished / 1000);
                         wwmeDevice.setLed(LedColor.create(0, 0, 255));
