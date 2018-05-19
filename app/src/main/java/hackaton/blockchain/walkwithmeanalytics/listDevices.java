@@ -61,10 +61,10 @@ public class listDevices extends ListActivity implements Serializable {
     @Override
     protected void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-        /*final Intent returnLectura = new Intent(this, setup_config.class);
+        final Intent returnLectura = new Intent(this, setup_config.class);
         Bean wwmesDevice = (Bean) l.getAdapter().getItem(position);
         returnLectura.putExtra("connect", wwmesDevice);
         startActivity(returnLectura);
-        MainActivity.Main.finish();*/
+        MainActivity.Main.finish();
     }
 }
