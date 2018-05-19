@@ -10,7 +10,7 @@ Walk With Me App adaptada para la obtencion de datos a traves del acelerometro d
 - Conexion BLE 4.0 
 
 # APK disponible en URL
-[Aquí](https://github.com/M4uRoDev/WalkWithMeAnalytics/blob/master/WalkWithMeAnalytics-app-v0.4.apk)
+[Aquí](https://github.com/M4uRoDev/WalkWithMeAnalytics/blob/master/WalkWithMe%20Analytics-v0.5.apk)
 
 # Manual de uso. 
 Prender dispositivo y presionar en la imagen de la aplicacion, se mostrara una lista con los dispositivos disponibles, al seleccionar el deseado se abriran las opciones para tomar muestra.
